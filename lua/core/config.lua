@@ -27,17 +27,6 @@ util.opt("shiftwidth", 4) -- shift 4 spaces when tab
 util.opt("tabstop", 4) -- default to 1 tab == 4 spaces
 util.opt("smartindent", true) -- auto indent new lines
 
--- NERDtree
-g.NERDTreeQuitOnOpen = 1
-g.NERDTreeShowHidden = 1
-g.NERDTreeIgnore = {
-    ".*.swp",
-    "*.o",
-    "*.a",
-    "*.out",
-    "*.pyc",
-}
-
 local disabled_built_ins = {
     "2html_plugin",
     "getscript",
