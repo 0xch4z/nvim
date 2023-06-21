@@ -1,0 +1,30 @@
+name: Update submodule in github.com/0xch4z/dotfiles
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: 0xch4z/dotfiles
+          token: ${{ secrets.DOTFILES_GH_TOKEN }}
+          submodules: true
+
+      - name: Pull & update submodules recursively
+        run: |
+          git submodule update --init --recursive
+          git submodule update --recursive --remote
+
+      - name: Commit
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+          git add --all
+          git commit -m "chore: update github.com/0xch4z/dotfiles submodule" || echo "No changes to commit"
+          git push
