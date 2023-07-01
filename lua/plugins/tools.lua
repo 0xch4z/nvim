@@ -51,6 +51,12 @@ tools["klen/nvim-test"] = {
     },
 }
 
+tools["kevinhwang91/nvim-bqf"] = {
+    lazy = true,
+    ft = "qf",
+    config = load("plugins.configs.tools.bqf"),
+}
+
 tools["tamago324/lir.nvim"] = {
     config = load("plugins.configs.tools.lir"),
 }
