@@ -11,20 +11,19 @@ util.opt("swapfile", false)
 util.opt("completeopt", "menu,menuone,noselect")
 
 -- UI
-util.opt("colorcolumn", "80") -- show line length market at pos 80
-util.opt("lazyredraw", true) -- faster scrolling
-util.opt("showmatch", true) -- highlight matching parenthesis
+util.opt("colorcolumn", "80")   -- show line length market at pos 80
+util.opt("lazyredraw", true)    -- faster scrolling
+util.opt("showmatch", true)     -- highlight matching parenthesis
 util.opt("termguicolors", true) -- enabled 24-bit RGB colors
-util.opt("history", 100) -- keep last 100 lines of buffer in memory
-util.opt("synmaxcol", 240) -- don't process syntax of 240+ char line
-util.opt("signcolumn", "yes") -- allow signs alongside line numbers
-util.opt("number", true) -- number lines
-util.opt("clipboard", "unnamed") -- copy/paste with system pasteboard
+util.opt("history", 100)        -- keep last 100 lines of buffer in memory
+util.opt("synmaxcol", 240)      -- don't process syntax of 240+ char line
+util.opt("signcolumn", "yes")   -- allow signs alongside line numbers
+util.opt("number", true)        -- number lines
 
 -- Text
-util.opt("expandtab", true) -- use spaces instead of tabs
-util.opt("shiftwidth", 4) -- shift 4 spaces when tab
-util.opt("tabstop", 4) -- default to 1 tab == 4 spaces
+util.opt("expandtab", true)   -- use spaces instead of tabs
+util.opt("shiftwidth", 4)     -- shift 4 spaces when tab
+util.opt("tabstop", 4)        -- default to 1 tab == 4 spaces
 util.opt("smartindent", true) -- auto indent new lines
 
 local disabled_built_ins = {
