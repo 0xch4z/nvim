@@ -1,6 +1,6 @@
 local cmd = vim.cmd
 
-cmd("colorscheme oxocarbon")
+cmd("colorscheme embark")
 cmd("hi Normal guibg=None ctermbg=None")
 
 -- Sign Column

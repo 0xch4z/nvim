@@ -3,8 +3,8 @@ local ui = {}
 local util = require("plugins.util")
 local load = util.load
 
-ui["nyoom-engineering/oxocarbon.nvim"] = {
-    config = load("plugins.configs.ui.oxocarbon"),
+ui["embark-theme/vim"] = {
+    config = load("plugins.configs.ui.embark"),
 }
 
 ui["mhinz/vim-startify"] = {
