@@ -74,4 +74,27 @@ tools["mrjones2014/smart-splits.nvim"] = {
     config = load("plugins.configs.tools.smart-splits"),
 }
 
+tools["williamboman/mason.nvim"] = {
+    config = load("plugins.configs.tools.mason"),
+}
+
+tools["mfussenegger/nvim-dap"] = {
+    config = load("plugins.configs.tools.nvim-dap"),
+    dependencies = {
+        "theHamsta/nvim-dap-virtual-text",
+        "nvim-telescope/telescope-dap.nvim",
+        "jbyuki/one-small-step-for-vimkind",
+    }
+}
+tools["rcarriga/nvim-dap-ui"] = {
+    event = "VeryLazy",
+    config = function()
+        require("dapui").setup()
+    end,
+}
+
+tools["jay-babu/mason-nvim-dap.nvim"] = {
+    config = load("plugins.configs.tools.mason-nvim-dap")
+}
+
 return tools
