@@ -58,9 +58,6 @@ nls.setup({
     on_attach = on_attach,
     sources = {
         -- Go
-        builtins.diagnostics.golangci_lint.with({
-            runtime_condition = has_exec("golangci_lint"),
-        }),
          builtins.formatting.gofmt.with({
             runtime_condition = has_exec("gofmt"),
         }),
