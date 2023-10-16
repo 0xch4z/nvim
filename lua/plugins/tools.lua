@@ -101,4 +101,8 @@ tools["folke/persistence.nvim"] = {
     config = load("plugins.configs.tools.persistence")
 }
 
+tools["ThePrimeagen/harpoon"] = {
+    config = load("plugins.configs.tools.harpoon"),
+}
+
 return tools
