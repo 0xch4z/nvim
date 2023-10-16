@@ -58,7 +58,7 @@ nls.setup({
     on_attach = on_attach,
     sources = {
         -- Go
-         builtins.formatting.gofmt.with({
+        builtins.formatting.gofmt.with({
             runtime_condition = has_exec("gofmt"),
         }),
 
@@ -88,19 +88,8 @@ nls.setup({
         builtins.formatting.stylua,
 
         -- YAML
-        builtins.diagnostics.yamllint.with({
-            runtime_condition = has_exec("yamllint"),
-        }),
-        builtins.formatting.yamlfmt.with({
-            runtime_condition = has_exec("yamlfmt"),
-        }),
         builtins.diagnostics.actionlint.with({
             runtime_condition = has_exec("actionlint"),
-        }),
-
-        -- Misc.
-        builtins.diagnostics.editorconfig_checker.with({
-            runtime_condition = has_exec("editorconfig_checker"),
         }),
     },
 })
