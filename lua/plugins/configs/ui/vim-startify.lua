@@ -16,6 +16,12 @@ g.startify_bookmarks = {
 }
 
 g.startify_commands = {
+    {
+        r = {
+            "Restore Last Session",
+            ":lua require('persistence').load({ last = true })",
+        },
+    },
     { up = { "Update Plugins", ":Lazy update" } },
     { ug = { "Debug Plugins", ":Lazy debug" } },
     { ts = { "Update Treesitter", "TSUpdate" } },

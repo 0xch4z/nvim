@@ -97,4 +97,8 @@ tools["romgrk/barbar.nvim"] = {
     config = load("plugins.configs.tools.barbar"),
 }
 
+tools["folke/persistence.nvim"] = {
+    config = load("plugins.configs.tools.persistence")
+}
+
 return tools
