@@ -84,7 +84,7 @@ tools["mfussenegger/nvim-dap"] = {
         "theHamsta/nvim-dap-virtual-text",
         "nvim-telescope/telescope-dap.nvim",
         "jbyuki/one-small-step-for-vimkind",
-    }
+    },
 }
 tools["rcarriga/nvim-dap-ui"] = {
     event = "VeryLazy",
@@ -93,8 +93,8 @@ tools["rcarriga/nvim-dap-ui"] = {
     end,
 }
 
-tools["jay-babu/mason-nvim-dap.nvim"] = {
-    config = load("plugins.configs.tools.mason-nvim-dap")
+tools["romgrk/barbar.nvim"] = {
+    config = load("plugins.configs.tools.barbar"),
 }
 
 return tools
