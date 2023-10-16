@@ -5,9 +5,9 @@ g.startify_files_number = 10
 g.startify_change_to_dir = 0
 
 g.startify_lists = {
-    { type = "dir",       header = { "  💾 MRU: " .. fn.getcwd() } },
+    { type = "dir", header = { "  💾 MRU: " .. fn.getcwd() } },
     { type = "bookmarks", header = { "  📖 Bookmarks" } },
-    { type = "commands",  header = { "  💻 Commands" } },
+    { type = "commands", header = { "  💻 Commands" } },
 }
 
 g.startify_bookmarks = {
@@ -19,7 +19,7 @@ g.startify_commands = {
     {
         r = {
             "Restore Last Session",
-            ":lua require('persistence').load({ last = true })",
+            ":SessionLoad",
         },
     },
     { up = { "Update Plugins", ":Lazy update" } },
