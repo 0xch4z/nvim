@@ -136,6 +136,12 @@ local lsp_configs = {
             },
         },
     },
+    elixirls = {
+        ft = { "elixir" },
+        options = {
+            cmd = { os.getenv("HOME") .. "/checkouts/elixir-ls/release/language_server.sh" },
+        },
+    },
 }
 
 -- Describes whether the current buffer has initialized the LSP for it's

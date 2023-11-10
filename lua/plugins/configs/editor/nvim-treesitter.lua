@@ -22,6 +22,7 @@ tsconf.setup({
         "make",
         "help",
         "zig",
+        "elixir",
     },
     autotag = {
         enabled = true,

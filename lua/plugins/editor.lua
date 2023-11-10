@@ -30,7 +30,7 @@ editor["nvim-treesitter/nvim-treesitter"] = {
     dependencies = {
         { "abecodes/tabout.nvim" },
         { "nvim-treesitter/nvim-treesitter-textobjects" },
-        { "mrjones2014/nvim-ts-rainbow" },
+        -- this plugin is broken :( { "mrjones2014/nvim-ts-rainbow" },
         { "JoosepAlviste/nvim-ts-context-commentstring" },
         { "mfussenegger/nvim-treehopper" },
         { "andymass/vim-matchup" },
@@ -54,6 +54,9 @@ editor["nvim-treesitter/nvim-treesitter"] = {
 editor["ntpeters/vim-better-whitespace"] = {
     lazy = true,
     event = "InsertEnter",
+}
+
+editor["gpanders/editorconfig.nvim"] = {
 }
 
 return editor

@@ -62,6 +62,10 @@ nls.setup({
             runtime_condition = has_exec("gofmt"),
         }),
 
+        builtins.formatting.prettier.with({
+            runtime_condition = has_exec("prettier"),
+        }),
+
         -- Shell
         builtins.diagnostics.shellcheck.with({
             runtime_condition = has_exec("shellcheck"),
