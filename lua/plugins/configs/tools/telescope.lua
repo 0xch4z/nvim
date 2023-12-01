@@ -30,9 +30,8 @@ telescope.setup({
         initial_mode = "insert",
         mappings = {
             i = {
-                    ["q"] = actions.close,
-                    ["<C-x>"] = false,
-                    ["<CR>"] = actions.select_default,
+                ["<C-x>"] = false,
+                ["<CR>"] = actions.select_default,
             },
         },
     },
