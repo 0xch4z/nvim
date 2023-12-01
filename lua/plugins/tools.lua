@@ -42,12 +42,14 @@ tools["ibhagwan/smartyank.nvim"] = {
     event = "BufReadPost",
 }
 
-tools["klen/nvim-test"] = {
-    lazy = true,
-    config = load("plugins.configs.tools.nvim-test"),
-    cmd = { "TestEdit", "TestSuite", "TestFile", "TestPrevious", "TestInfo", "TestNearest" },
+tools["nvim-neotest/neotest"] = {
+    config = load("plugins.configs.tools.neotest"),
     dependencies = {
-        { "nvim-treesitter/nvim-treesitter" },
+        "nvim-lua/plenary.nvim",
+        "antoinemadec/FixCursorHold.nvim",
+        "nvim-neotest/neotest-go",
+        "jfpedroza/neotest-elixir",
+        "nvim-neotest/neotest-plenary",
     },
 }
 
@@ -103,6 +105,10 @@ tools["olimorris/persisted.nvim"] = {
 
 tools["ThePrimeagen/harpoon"] = {
     config = load("plugins.configs.tools.harpoon"),
+}
+
+tools["jinh0/eyeliner.nvim"] = {
+    config = load("plugins.configs.tools.eyeliner")
 }
 
 return tools

@@ -25,17 +25,20 @@ local mappings = {
     ["n|<leader>di"] = cmd("DapStepInto"):desc("debug: step into"),
     ["n|<leader>dl"] = cmd("DapShowLog"):desc("debug: show logs"),
     -- Testing
-    ["n|<leader>ts"] = cmd("TestSuite"):noremap():desc("test: run suite"),
-    ["n|<leader>tf"] = cmd("TestFile"):noremap():desc("test: run file"),
-    ["n|<leader>tt"] = cmd("TestNearest"):noremap():desc("test: run nearest"),
-    ["n|<leader>tr"] = cmd("TestLast"):noremap():desc("test: rerun"),
+    ["n|<leader>tt"] = cmd("lua require'neotest'.run.run()"):noremap():desc("test: run nearest"),
+    ["n|<leader>tl"] = cmd("lua require'neotest'.run.run_last()"):noremap():desc("test: run last"),
+    ["n|<leader>tj"] = cmd("lua require'neotest'.jump.prev()"):noremap():desc("test: jump-to last"),
+    ["n|<leader>tf"] = cmd("lua require'neotest'.run.run(vim.fn.expand(\"%\"))"):noremap():desc("test: run file"),
+    ["n|<leader>td"] = cmd("lua require'neotest'.run.run({strategy = \"dap\"})"):noremap():desc("test: rerun"),
+    ["n|<leader>tO"] = cmd("lua require'neotest'.output_panel.toggle()"):noremap():desc("test: output"),
+    ["n|<leader>to"] = cmd("lua require'neotest'.output.open()"):noremap():desc("test: output"),
     -- Note taking
     ["n|<leader>mm"] = cmd("MindOpenMain"):noremap():desc("mind: open main"),
     ["n|<leader>mp"] = cmd("MindOpenProject"):noremap():desc("mind: open project"),
     -- Misc
     ["n|<leader>mv"] = cmd("Glow"):noremap():desc("markdown: preview"),
-    ["n|nn"] = cmd("lua require'harpoon.ui'.toggle_quick_menu()"):desc("harpoon: ui"),
-    ["n|nm"] = cmd("lua require'harpoon.mark'.add_file()"):desc("harpoon: add"),
+    ["n|hh"] = cmd("lua require'harpoon.ui'.toggle_quick_menu()"):desc("harpoon: ui"),
+    ["n|hm"] = cmd("lua require'harpoon.mark'.add_file()"):desc("harpoon: add"),
 }
 
 map.register_keys(mappings)
