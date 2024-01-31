@@ -1,4 +1,5 @@
 local nls = require("null-ls")
+local util = require("lspconfig/util")
 local builtins = nls.builtins
 
 local function has_exec(filename)
@@ -75,6 +76,19 @@ nls.setup({
         }),
         builtins.formatting.shellharden.with({
             runtime_condition = has_exec("shellharden"),
+        }),
+
+        -- Elixir
+        -- builtins.formatting.mix.with({
+        --     extra_filetypes = { "eelixir", "heex" },
+        --     root_dir = util.root_pattern("mix.exs"),
+        -- }),
+        builtins.diagnostics.credo.with({
+            extra_filetypes = { "eelixir", "heex" },
+            root_dir = util.root_pattern(".credo.exs", "mix.exs"),
+            method = nls.methods.DIAGNOSTICS_ON_SAVE,
+            command = "mix",
+            lint_command = "credo suggest --format=flycheck --read-from-stdin ${INPUT}",
         }),
 
         -- Rust

@@ -23,6 +23,7 @@ tsconf.setup({
         "help",
         "zig",
         "elixir",
+        "terraform",
     },
     autotag = {
         enabled = true,
@@ -46,30 +47,30 @@ tsconf.setup({
         select = {
             enable = true,
             keymaps = {
-                    ["af"] = "@function.outer",
-                    ["if"] = "@function.inner",
-                    ["ac"] = "@class.outer",
-                    ["ic"] = "@class.inner",
+                ["af"] = "@function.outer",
+                ["if"] = "@function.inner",
+                ["ac"] = "@class.outer",
+                ["ic"] = "@class.inner",
             },
         },
         move = {
             enable = true,
             set_jumps = true,
             goto_next_start = {
-                    ["]["] = "@function.outer",
-                    ["]m"] = "@class.outer",
+                ["]["] = "@function.outer",
+                ["]m"] = "@class.outer",
             },
             goto_next_end = {
-                    ["]]"] = "@function.outer",
-                    ["]M"] = "@class.outer",
+                ["]]"] = "@function.outer",
+                ["]M"] = "@class.outer",
             },
             goto_previous_start = {
-                    ["[["] = "@function.outer",
-                    ["[m"] = "@class.outer",
+                ["[["] = "@function.outer",
+                ["[m"] = "@class.outer",
             },
             goto_previous_end = {
-                    ["[]"] = "@function.outer",
-                    ["[M"] = "@class.outer",
+                ["[]"] = "@function.outer",
+                ["[M"] = "@class.outer",
             },
         },
     },

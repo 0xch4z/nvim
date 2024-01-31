@@ -86,6 +86,9 @@ end
 
 -- all language servers: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 local lsp_configs = {
+    terraformls = {
+        ft = { "tf", "terraform" },
+    },
     bashls = {
         ft = { "bash", "sh" },
     },
@@ -111,7 +114,22 @@ local lsp_configs = {
         ft = { "zig" },
     },
     jsonls = {
-        ft = { "json", "yaml" },
+        ft = { "json" },
+    },
+    yamlls = {
+        ft = { "yaml" },
+        options = {
+            settings = {
+                yaml = {
+                    schemaStore = {
+                        enable = true,
+                        url = "https://www.schemastore.org/api/json/catalog.json",
+                    },
+                    schemaDownload = { enable = true },
+                    schemas = {},
+                }
+            }
+        }
     },
     solargraph = {
         ft = { "ruby" },
