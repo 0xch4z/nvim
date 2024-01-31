@@ -37,8 +37,8 @@ local mappings = {
     ["n|<leader>mp"] = cmd("MindOpenProject"):noremap():desc("mind: open project"),
     -- Misc
     ["n|<leader>mv"] = cmd("Glow"):noremap():desc("markdown: preview"),
-    ["n|hh"] = cmd("lua require'harpoon.ui'.toggle_quick_menu()"):desc("harpoon: ui"),
-    ["n|hm"] = cmd("lua require'harpoon.mark'.add_file()"):desc("harpoon: add"),
+    ["n|<leader>hh"] = cmd("lua require'harpoon.ui'.toggle_quick_menu()"):desc("harpoon: ui"),
+    ["n|<leader>hm"] = cmd("lua require'harpoon.mark'.add_file()"):desc("harpoon: add"),
 }
 
 map.register_keys(mappings)
