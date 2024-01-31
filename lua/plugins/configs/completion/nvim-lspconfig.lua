@@ -118,18 +118,7 @@ local lsp_configs = {
     },
     yamlls = {
         ft = { "yaml" },
-        options = {
-            settings = {
-                yaml = {
-                    schemaStore = {
-                        enable = true,
-                        url = "https://www.schemastore.org/api/json/catalog.json",
-                    },
-                    schemaDownload = { enable = true },
-                    schemas = {},
-                }
-            }
-        }
+        options = require("plugins.configs.lang.yaml-companion")
     },
     solargraph = {
         ft = { "ruby" },
