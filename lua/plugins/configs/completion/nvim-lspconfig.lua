@@ -151,6 +151,15 @@ local lsp_configs = {
     },
 }
 
+-- Add macOS specific lsps
+--
+if vim.loop.os_uname().sysname == "Darwin" then
+    lsp_configs["sourcekit"] = {
+        ft = { "swift" },
+        options = { cmd = { "sourcekit-lsp" } },
+    }
+end
+
 -- Describes whether the current buffer has initialized the LSP for it's
 -- Filetype.
 local current_buffer_started = false

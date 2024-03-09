@@ -56,7 +56,13 @@ editor["ntpeters/vim-better-whitespace"] = {
     event = "InsertEnter",
 }
 
-editor["gpanders/editorconfig.nvim"] = {
+editor["gpanders/editorconfig.nvim"] = {}
+
+editor["utilyre/barbecue.nvim"] = {
+    dependencies = {
+        { "SmiteshP/nvim-navic" },
+        { "nvim-tree/nvim-web-devicons" },
+    },
 }
 
 return editor
