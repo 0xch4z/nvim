@@ -14,7 +14,7 @@ tools["LeonHeidelbach/trailblazer.nvim"] = {
 }
 
 tools["nvim-telescope/telescope.nvim"] = {
-    tag = "0.1.0",
+    tag = "0.1.8",
     dependencies = {
         { "nvim-tree/nvim-web-devicons" },
         { "nvim-lua/plenary.nvim" },
@@ -50,6 +50,7 @@ tools["nvim-neotest/neotest"] = {
         "nvim-neotest/neotest-go",
         "jfpedroza/neotest-elixir",
         "nvim-neotest/neotest-plenary",
+        "nvim-neotest/nvim-nio"
     },
 }
 
