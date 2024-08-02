@@ -112,4 +112,12 @@ tools["jinh0/eyeliner.nvim"] = {
     config = load("plugins.configs.tools.eyeliner")
 }
 
+tools["rmagatti/auto-session"] = {
+    lazy = false,
+    dependencies = {
+        -- "nvim-telescope/telescope.nvim" -- maybe?
+    },
+    config = load("plugins.configs.tools.auto-session"),
+}
+
 return tools
