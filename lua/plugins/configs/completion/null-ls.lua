@@ -103,7 +103,6 @@ nls.setup({
         builtins.formatting.stylua.with({
             runtime_condition = has_exec("stylua"),
         }),
-        builtins.formatting.stylua,
 
         -- YAML
         builtins.diagnostics.actionlint.with({
