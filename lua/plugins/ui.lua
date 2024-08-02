@@ -7,9 +7,9 @@ ui["embark-theme/vim"] = {
     config = load("plugins.configs.ui.embark"),
 }
 
-ui["mhinz/vim-startify"] = {
-    config = load("plugins.configs.ui.vim-startify"),
-}
+-- ui["mhinz/vim-startify"] = {
+--     config = load("plugins.configs.ui.vim-startify"),
+-- }
 
 ui["lewis6991/gitsigns.nvim"] = {
     lazy = true,
