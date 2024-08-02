@@ -1,10 +1,10 @@
 local yaml_comp = require("yaml-companion")
-local teleacope = require("telescope")
+-- local telescope = require("telescope")
 
 local config = yaml_comp.setup({
     builtin_matchers = {
         kubernetes = { enabled = true },
-        cloud_init = { enabled = true }
+        cloud_init = { enabled = true },
     },
     schemas = {
         {
@@ -35,6 +35,6 @@ local config = yaml_comp.setup({
     },
 })
 
-teleacope.load_extension("yaml_schema")
+-- telescope.load_extension("yaml_schema")
 
 return config
