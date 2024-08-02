@@ -104,7 +104,7 @@ local lsp_configs = {
     rust_analyzer = {
         ft = { "rust" },
     },
-    volar = {
+    tsserver = {
         ft = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
     },
     pyright = {
