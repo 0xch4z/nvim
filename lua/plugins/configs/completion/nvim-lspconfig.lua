@@ -118,7 +118,7 @@ local lsp_configs = {
     },
     yamlls = {
         ft = { "yaml" },
-        options = require("plugins.configs.lang.yaml-companion")
+        options = require("plugins.configs.lang.yaml-companion"),
     },
     solargraph = {
         ft = { "ruby" },
@@ -146,7 +146,7 @@ local lsp_configs = {
     elixirls = {
         ft = { "elixir" },
         options = {
-            cmd = { os.getenv("HOME") .. "/checkouts/elixir-ls/release/language_server.sh" },
+            cmd = { "elixir-ls" },
         },
     },
 }
