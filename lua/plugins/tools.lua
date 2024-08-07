@@ -50,7 +50,7 @@ tools["nvim-neotest/neotest"] = {
         "nvim-neotest/neotest-go",
         "jfpedroza/neotest-elixir",
         "nvim-neotest/neotest-plenary",
-        "nvim-neotest/nvim-nio"
+        "nvim-neotest/nvim-nio",
     },
 }
 
@@ -60,8 +60,15 @@ tools["kevinhwang91/nvim-bqf"] = {
     config = load("plugins.configs.tools.bqf"),
 }
 
-tools["tamago324/lir.nvim"] = {
-    config = load("plugins.configs.tools.lir"),
+tools["nvim-neo-tree/neo-tree.nvim"] = {
+    config = load("plugins.configs.tools.neo-tree"),
+    branch = "v3.x",
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+        "nvim-tree/nvim-web-devicons",
+        "MunifTanjim/nui.nvim",
+        "3rd/image.nvim",
+    },
 }
 
 tools["phaazon/mind.nvim"] = {
@@ -101,7 +108,7 @@ tools["romgrk/barbar.nvim"] = {
 }
 
 tools["olimorris/persisted.nvim"] = {
-    config = load("plugins.configs.tools.persisted")
+    config = load("plugins.configs.tools.persisted"),
 }
 
 tools["ThePrimeagen/harpoon"] = {
@@ -109,7 +116,7 @@ tools["ThePrimeagen/harpoon"] = {
 }
 
 tools["jinh0/eyeliner.nvim"] = {
-    config = load("plugins.configs.tools.eyeliner")
+    config = load("plugins.configs.tools.eyeliner"),
 }
 
 tools["rmagatti/auto-session"] = {

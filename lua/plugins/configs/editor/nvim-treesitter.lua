@@ -3,30 +3,32 @@ local tsconf = require("nvim-treesitter.configs")
 -- only install TS languages if environment variable is set.
 local is_ts_managed = os.getenv("NVIM_MANAGED_TS") == "1"
 
-local ensure_installed = is_ts_managed and {
-    "bash",
-    "c",
-    "cpp",
-    "go",
-    "gomod",
-    "javascript",
-    "json",
-    "lua",
-    "python",
-    "ruby",
-    "toml",
-    "yaml",
-    "tsx",
-    "vue",
-    "typescript",
-    "rust",
-    "hcl",
-    "make",
-    "help",
-    "zig",
-    "elixir",
-    "terraform",
-} or {};
+local ensure_installed = is_ts_managed
+        and {
+            "bash",
+            "c",
+            "cpp",
+            "go",
+            "gomod",
+            "javascript",
+            "json",
+            "lua",
+            "python",
+            "ruby",
+            "toml",
+            "yaml",
+            "tsx",
+            "vue",
+            "typescript",
+            "rust",
+            "hcl",
+            "make",
+            "help",
+            "zig",
+            "elixir",
+            "terraform",
+        }
+    or {}
 
 tsconf.setup({
     ensure_installed = ensure_installed,
