@@ -91,10 +91,10 @@ nls.setup({
             lint_command = "credo suggest --format=flycheck --read-from-stdin ${INPUT}",
         }),
 
-        -- Rust
-        builtins.formatting.rustfmt.with({
-            runtime_condition = has_exec("rustfmt"),
-        }),
+        -- -- Rust
+        -- builtins.formatting.rustfmt.with({
+        --     runtime_condition = has_exec("rustfmt"),
+        -- }),
 
         -- Lua
         builtins.diagnostics.luacheck.with({

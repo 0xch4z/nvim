@@ -54,21 +54,14 @@ tools["nvim-neotest/neotest"] = {
     },
 }
 
+tools["tamago324/lir.nvim"] = {
+    config = load("plugins.configs.tools.lir"),
+}
+
 tools["kevinhwang91/nvim-bqf"] = {
     lazy = true,
     ft = "qf",
     config = load("plugins.configs.tools.bqf"),
-}
-
-tools["nvim-neo-tree/neo-tree.nvim"] = {
-    config = load("plugins.configs.tools.neo-tree"),
-    branch = "v3.x",
-    dependencies = {
-        "nvim-lua/plenary.nvim",
-        "nvim-tree/nvim-web-devicons",
-        "MunifTanjim/nui.nvim",
-        "3rd/image.nvim",
-    },
 }
 
 tools["phaazon/mind.nvim"] = {
