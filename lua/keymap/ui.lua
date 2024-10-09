@@ -15,7 +15,9 @@ local mappings = {
     ["n|<leader>wl"] = cmd("<c-w>l"):noremap():desc("window: go right"),
     -- Window operations
     ["n|<leader>vs"] = cmd("vsplit"):noremap():desc("window: vsplit"),
+    ["n|<leader>hs"] = cmd("split"):noremap():desc("window: hsplit"),
     -- Buffer lifecycle/navigation
+    ["n|<leader>bd"] = cmd("bd"):noremap():desc("buffer: delete"),
     ["n|<leader>q"] = cmd("q"):noremap():desc("buffer: quit"),
     ["n|<leader>wq"] = cmd("wq"):noremap():desc("buffer: save & quit"),
     ["n|<leader>qa"] = cmd("qa"):noremap():desc("buffer: quit all"),
