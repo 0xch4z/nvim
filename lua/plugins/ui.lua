@@ -17,4 +17,8 @@ ui["lewis6991/gitsigns.nvim"] = {
     config = load("plugins.configs.ui.gitsigns"),
 }
 
+ui["https://git.sr.ht/~whynothugo/lsp_lines.nvim"] = {
+    config = load("plugins.configs.ui.lsp-lines")
+}
+
 return ui

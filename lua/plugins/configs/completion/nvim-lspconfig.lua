@@ -23,14 +23,9 @@ end
 
 -- See: `:help vim.diagnostic.config`
 vim.diagnostic.config({
-    update_in_insert = false,
-    float = {
-        focusable = false,
-        style = "minimal",
-        border = "rounded",
-        source = "always",
-        header = "",
-        prefix = "",
+    virtual_text = false,
+    virtual_lines = {
+        only_current_line = true,
     },
 })
 
