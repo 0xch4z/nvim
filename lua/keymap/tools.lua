@@ -11,7 +11,10 @@ local mappings = {
     ["n|<leader>fg"] = cmd("Telescope live_grep"):noremap():desc("file: live grep"),
     ["n|<leader>bf"] = cmd("Telescope buffers"):noremap():desc("buffer: find"),
     -- Diagnostics
-    ["n|<leader>de"] = cmd("TroubleToggle"):noremap():desc("diag: errors"),
+    ["n|<leader>de"] = cmd("Trouble diagnostics toggle"):noremap():desc("diag: show diagnostics"),
+    ["n|<leader>dE"] = cmd("Trouble diagnostics toggle filter.buf=0")
+        :noremap()
+        :desc("diag: show diagnostics for buffer"),
     ["n|<leader>ds"] = cmd("SymbolsOutline"):noremap():desc("diag: symbol outline"),
     ["n|<leader>vb"] = cmd("Gitsigns blame_line"):noremap():desc("git: blame line"),
     ["n|<leader>vd"] = cmd("Gitsigns toggle_deleted"):noremap():desc("git: show deleted"),
