@@ -118,6 +118,12 @@ local lsp_configs = {
     solargraph = {
         ft = { "ruby" },
     },
+    slint_lsp = {
+        ft = { "slint" },
+        options = {
+            cmd = { "slint-lsp" },
+        },
+    },
     -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sumneko_lua
     lua_ls = {
         ft = { "lua" },
@@ -196,3 +202,5 @@ for lsp, config in pairs(lsp_configs) do
         end
     end
 end
+
+require("lspconfig").slint_lsp.setup({})
