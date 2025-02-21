@@ -124,6 +124,9 @@ local lsp_configs = {
             cmd = { "slint-lsp" },
         },
     },
+    nixd = {
+        ft = { "nix" },
+    },
     -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sumneko_lua
     lua_ls = {
         ft = { "lua" },
@@ -153,7 +156,6 @@ local lsp_configs = {
 }
 
 -- Add macOS specific lsps
---
 if vim.loop.os_uname().sysname == "Darwin" then
     lsp_configs["sourcekit"] = {
         ft = { "swift" },
