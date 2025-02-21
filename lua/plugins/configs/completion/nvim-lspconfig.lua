@@ -99,7 +99,7 @@ local lsp_configs = {
     rust_analyzer = {
         ft = { "rust" },
     },
-    tsserver = {
+    ts_ls = {
         ft = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
     },
     pyright = {
