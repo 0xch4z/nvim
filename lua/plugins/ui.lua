@@ -21,4 +21,8 @@ ui["https://git.sr.ht/~whynothugo/lsp_lines.nvim"] = {
     config = load("plugins.configs.ui.lsp-lines")
 }
 
+ui["j-hui/fidget.nvim"] = {
+    config = load("plugins.configs.ui.fidget")
+}
+
 return ui
