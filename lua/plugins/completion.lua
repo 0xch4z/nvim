@@ -7,7 +7,6 @@ completion["neovim/nvim-lspconfig"] = {
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
     dependencies = {
         { "ray-x/lsp_signature.nvim" },
-        { "glepnir/lspsaga.nvim",    config = load("plugins.configs.completion.lspsaga") },
         {
             "jose-elias-alvarez/null-ls.nvim",
             dependencies = {
@@ -28,7 +27,7 @@ completion["hrsh7th/nvim-cmp"] = {
         { "rafamadriz/friendly-snippets" },
         { "onsails/lspkind.nvim" },
         { "hrsh7th/cmp-nvim-lsp" }, -- Comp. for LSP
-        { "hrsh7th/cmp-buffer" },   -- Comp. for text in buffer
+        { "hrsh7th/cmp-buffer" }, -- Comp. for text in buffer
         { "hrsh7th/cmp-path" },
         { "f3fora/cmp-spell" },
         { "onsails/lspkind.nvim" },
