@@ -44,6 +44,7 @@ local mappings = {
     ["n|hm"] = cmd("lua require'harpoon.mark'.add_file()"):desc("harpoon: add"),
     ["n|hp"] = cmd("lua require'harpoon.ui'.nav_prev()"):noremap():desc("harpoon: nav prev"),
     ["n|hn"] = cmd("lua require'harpoon.ui'.nav_next()"):noremap():desc("harpoon: nav next"),
+    ["n|z/"] = cmd("HopChar1"):noremap():desc("goto: character"),
 }
 
 map.register_keys(mappings)

@@ -120,4 +120,8 @@ tools["rmagatti/auto-session"] = {
     config = load("plugins.configs.tools.auto-session"),
 }
 
+tools["smoka7/hop.nvim"] = {
+    config = load("plugins.configs.tools.hop")
+}
+
 return tools
