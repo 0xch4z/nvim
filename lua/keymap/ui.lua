@@ -1,5 +1,6 @@
 local map = require("keymap.map")
 local cmd = map.cmd
+local key = map.key
 
 local mappings = {
     -- TODO: search on current line <leader>\\, get line number, run :/%LINE
@@ -28,6 +29,11 @@ local mappings = {
     ["n|<leader>ka"] = cmd("xa!"):noremap():desc("buffer: kill all"),
     ["n|8"] = cmd("bprevious"):noremap():desc("buffer: prev"),
     ["n|9"] = cmd("bnext"):noremap():desc("buffer: prev"),
+    -- Paging
+    ["n|<C-d>"] = key("<C-d>zz"):desc("page: down"),
+    ["n|<C-u>"] = key("<C-u>zz"):desc("page: up"),
+    ["n|G"] = cmd("Gzz"):noremap():desc("page: end"),
+
     --["n|<leader>bc"] = cmd("BufferClose"):noremap():desc("buffer: close"),
     -- Misc
     ["n|<leader>nh"] = cmd("noh"):noremap():desc("search: clear highlight"),

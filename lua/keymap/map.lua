@@ -75,7 +75,7 @@ function map.cmd(cmd)
 end
 
 function map.key(cmd)
-    cmd = (":%s"):format(cmd)
+    cmd = ("%s"):format(cmd)
     return Mapping:new(cmd)
 end
 
