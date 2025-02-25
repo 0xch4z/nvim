@@ -25,4 +25,6 @@ ui["j-hui/fidget.nvim"] = {
     config = load("plugins.configs.ui.fidget")
 }
 
+ui["eandrju/cellular-automaton.nvim"] = {}
+
 return ui

@@ -31,6 +31,7 @@ local mappings = {
     --["n|<leader>bc"] = cmd("BufferClose"):noremap():desc("buffer: close"),
     -- Misc
     ["n|<leader>nh"] = cmd("noh"):noremap():desc("search: clear highlight"),
+    ["n|<leader>fml"] = cmd("CellularAutomaton make_it_rain"):noremap():desc("fml"),
 }
 
 map.register_keys(mappings)
