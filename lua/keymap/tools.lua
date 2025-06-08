@@ -45,7 +45,14 @@ local mappings = {
     ["n|<leader>hn"] = cmd("lua require'harpoon.ui'.nav_prev()"):noremap():desc("harpoon: nav prev"),
     ["n|<leader>hp"] = cmd("lua require'harpoon.ui'.nav_next()"):noremap():desc("harpoon: nav next"),
     ["n|;;"] = cmd("HopChar1"):noremap():desc("goto: character"),
+    ["n|,,"] = cmd("HopChar1"):noremap():desc("goto: character"),
+    ["n|,."] = cmd("HopWord"):noremap():desc("goto: character"),
+    ["n|,p"] = cmd("HopChar1CurrentLine"):noremap():desc("goto: character in current line"),
+    ["n|,l"] = cmd("HopLine"):noremap():desc("goto: line"),
     ["n|;w"] = cmd("HopWord"):noremap():desc("goto: word"),
+
 }
+
+-- bruh
 
 map.register_keys(mappings)

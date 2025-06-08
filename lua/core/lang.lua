@@ -1,25 +1,45 @@
--- Global registry for all languages.
+local log = require("core.logger").new("lang")
+
 local registry = {}
+
+local BUFFER_OPTS = {
+    "expandtab",
+    "tabstop",
+    "shiftwidth",
+    "softtabstop",
+    "textwidth",
+    "autoindent",
+    "smartindent",
+    "cindent"
+}
+
+local WINDOW_OPTS = {
+	"colorcolumn",
+    "linebreak",
+    "wrap"
+}
 
 -- Language represents a language's editor configuration.
 local Language = {}
 Language.__index = Language
 
--- Create a new language configuration
-function Language:new(name)
+-- new creates a new Language instance.
+function Language:new_with_defaults(name)
     local instance = {
         name = name,
         config = {
-            -- Editor defaults
-            expandtab = true,
-            tabstop = 4,
-            shiftwidth = 4,
-            softtabstop = -1,
-            textwidth = 0,
-            wrap = true,
-            linebreak = true,
-            autoindent = true,
-            smartindent = true,
+            editor = {
+                expandtab = true,
+                tabstop = 4,
+                shiftwidth = 4,
+                softtabstop = -1,
+                textwidth = 80,
+                colorcolumn = 80,
+                wrap = true,
+                linebreak = true,
+                autoindent = true,
+                smartindent = true,
+            }
         },
         keymaps = {},
         autocmds = {},
@@ -31,56 +51,57 @@ end
 
 -- spaces sets the number of spaces to indent.
 function Language:spaces(n)
-    self.config.expandtab = true
-    self.config.tabstop = n
-    self.config.shiftwidth = n
-    self.config.softtabstop = -1
+    self.config.editor.expandtab = true
+    self.config.editor.tabstop = n
+    self.config.editor.shiftwidth = n
+    self.config.editor.softtabstop = -1
     return self
 end
 
 -- tabs sets the width of tabs to indent.
 function Language:tabs(n)
     n = n or 4
-    self.config.expandtab = false
-    self.config.tabstop = n
-    self.config.shiftwidth = n
-    self.config.softtabstop = 0
+    self.config.editor.expandtab = false
+    self.config.editor.tabstop = n
+    self.config.editor.shiftwidth = n
+    self.config.editor.softtabstop = 0
     return self
 end
 
 -- width sets text width
 function Language:width(n)
-    self.config.textwidth = n
+    self.config.editor.textwidth = n
+	self.config.editor.colorcolumn = tostring(n)
     return self
 end
 
 -- no_wrap disables line wrapping
 function Language:no_wrap()
-    self.config.wrap = false
-    self.config.linebreak = false
+    self.config.editor.wrap = false
+    self.config.editor.linebreak = false
     return self
 end
 
 -- hard_wrap breaks a line after the n-th character
 function Language:hard_wrap(n)
-    self.config.textwidth = n or 80
-    self.config.wrap = true
-    self.config.linebreak = true
+	self:width(n or 80)
+    self.config.editor.wrap = true
+    self.config.editor.linebreak = true
     return self
 end
 
 -- preserve_indent auto indents on new lines
 function Language:preserve_indent()
-    self.config.autoindent = true
-    self.config.smartindent = true
+    self.config.editor.autoindent = true
+    self.config.editor.smartindent = true
     return self
 end
 
 -- no_auto_indent does not auto indent on new lines
 function Language:no_auto_indent()
-    self.config.autoindent = false
-    self.config.smartindent = false
-    self.config.cindent = false
+    self.config.editor.autoindent = false
+    self.config.editor.smartindent = false
+    self.config.editor.cindent = false
     return self
 end
 
@@ -125,7 +146,7 @@ function Language:keymap(lhs, rhs, desc, mode)
     return self
 end
 
--- adds an autocmd for this language
+-- autocmd registers an autocmd for this language
 function Language:autocmd(event, callback, desc)
     table.insert(self.autocmds, {
         event = event,
@@ -135,49 +156,65 @@ function Language:autocmd(event, callback, desc)
     return self
 end
 
+-- on_save registers an on_save autocmd
 function Language:on_save(callback, desc)
     return self:autocmd('BufWritePre', callback, desc or 'On save')
 end
 
+-- on_enter registers an on_enter autocmd
 function Language:on_enter(callback, desc)
     return self:autocmd('BufEnter', callback, desc or 'On buffer enter')
 end
 
--- Register this language configuration
+-- register registers this language configuration
 function Language:register()
     registry[self.name] = self
     self:_apply_configuration()
     return self
 end
 
--- Internal: Apply the configuration to Neovim
+-- _apply_configuration applied the language's editor settings and keybinds
+-- to the given open buffer.
 function Language:_apply_configuration()
-    local augroup = vim.api.nvim_create_augroup('Language_' .. self.name, { clear = true })
+    local augroup = vim.api.nvim_create_augroup('lang::' .. self.name, { clear = true })
 
-    -- Apply editor settings on FileType
+    -- add root autocmd for filetype
     vim.api.nvim_create_autocmd('FileType', {
         pattern = self.name,
         group = augroup,
         callback = function(event)
             local buf = event.buf
 
-            -- Check if EditorConfig is present
+			log:trace("adjusting editor settings for %s (buffer:)", self.name)
+
+            -- if editorconfig is present in the root directory, we'll use that
+            -- instead of the language's default editor settings.
             local editorconfig_root = vim.fs.find('.editorconfig', {
                 upward = true,
-                path = vim.fn.expand('%:p:h'),
+                path = vim.fn.expand('%:p:h'), -- current file dir
                 type = 'file'
             })[1]
 
-            -- Only apply if no .editorconfig found
             if not editorconfig_root then
-                for option, value in pairs(self.config) do
-                    if type(value) ~= 'table' then
+                -- not editorconfig found, use language default editor settings
+                for _, option in ipairs(BUFFER_OPTS) do
+                    local value = self.config.editor[option]
+                    if type(value) ~= nil then
                         vim.api.nvim_set_option_value(option, value, { buf = buf })
                     end
                 end
+
+                -- NB: wrap, linebreak, etc. cannot be scoped to a buffer
+                for _, option in ipairs(WINDOW_OPTS) do
+                    local value = self.config.editor[option]
+                    if type(value) ~= nil then
+                        vim.api.nvim_set_option_value(option, value, {})
+                    end
+                end
+
             end
 
-            -- Apply keymaps (always, regardless of editorconfig)
+            -- apply language-specific keymaps
             for _, keymap in ipairs(self.keymaps) do
                 vim.keymap.set(keymap.mode, keymap.lhs, keymap.rhs, {
                     buffer = buf,
@@ -188,7 +225,7 @@ function Language:_apply_configuration()
         end,
     })
 
-    -- Apply custom autocmds
+    -- register any additional language autocmds
     for _, autocmd in ipairs(self.autocmds) do
         vim.api.nvim_create_autocmd(autocmd.event, {
             pattern = self.name,
@@ -199,20 +236,19 @@ function Language:_apply_configuration()
     end
 end
 
--- Static method: Create and immediately register a language
-function Language.register(name)
-    return Language:new(name)
+-- register creates and registers the language
+function Language.new(name)
+    return Language:new_with_defaults(name)
 end
 
--- Static method: Get registered language
+-- get returns a registered language by name
 function Language.get(name)
     return registry[name]
 end
 
--- Static method: Get all registered languages
+-- all returns all registered languages.
 function Language.all()
     return registry
 end
 
--- Module exports
 return Language

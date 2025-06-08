@@ -97,12 +97,12 @@ nls.setup({
         -- }),
 
         -- Lua
-        builtins.diagnostics.luacheck.with({
-            runtime_condition = has_exec("luacheck"),
-        }),
-        builtins.formatting.stylua.with({
-            runtime_condition = has_exec("stylua"),
-        }),
+        -- builtins.diagnostics.luacheck.with({
+        --     runtime_condition = has_exec("luacheck"),
+        -- }),
+        -- builtins.formatting.stylua.with({
+        --     runtime_condition = has_exec("stylua"),
+        -- }),
 
         -- YAML
         builtins.diagnostics.actionlint.with({

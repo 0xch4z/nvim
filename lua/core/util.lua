@@ -68,4 +68,8 @@ function M.opt(o, v, scopes)
     end
 end
 
+function M.highlight_bg(group, color)
+	vim.cmd(string.format("highlight %s guibg=%s", group, color))
+end
+
 return M

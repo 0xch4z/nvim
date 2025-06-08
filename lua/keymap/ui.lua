@@ -32,6 +32,8 @@ local mappings = {
     -- Paging
     ["n|<C-d>"] = key("<C-d>zz"):desc("page: down"),
     ["n|<C-u>"] = key("<C-u>zz"):desc("page: up"),
+    ["n|-"] = key("<C-d>zz"):desc("page: down"),
+    ["n|="] = key("<C-u>zz"):desc("page: up"),
     ["n|G"] = cmd("Gzz"):noremap():desc("page: end"),
 
     --["n|<leader>bc"] = cmd("BufferClose"):noremap():desc("buffer: close"),

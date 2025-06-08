@@ -1,0 +1,11 @@
+local Language = require("core.lang")
+local logger = require("core.logger").new("lua")
+
+Language.new("lua")
+    :tabs(4)
+    :width(100)
+    :on_save(function()
+		logger:info("LUAAAAA INNN THEEEE HOUSEEEEEE")
+		vim.cmd("echo 'hi'")
+    end, "save")
+    :register()

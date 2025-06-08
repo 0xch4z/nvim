@@ -2,3 +2,4 @@
 require("keymap")
 require("plugins")
 require("core.config")
+require("config.languages")
