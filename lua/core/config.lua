@@ -20,7 +20,7 @@ util.opt("synmaxcol", 240)      -- don't process syntax of 240+ char line
 util.opt("signcolumn", "yes")   -- allow signs alongside line numbers
 util.opt("number", true)        -- number lines
 
--- Text
+-- Global text defaults
 util.opt("expandtab", true)   -- use spaces instead of tabs
 util.opt("shiftwidth", 4)     -- shift 4 spaces when tab
 util.opt("tabstop", 4)        -- default to 1 tab == 4 spaces

@@ -3,34 +3,13 @@ local editor = {}
 local util = require("plugins.util")
 local load = util.load
 
--- Makes jk fast
-editor["rainbowhxch/accelerated-jk.nvim"] = {
-    lazy = true,
-    event = "VeryLazy",
-    config = load("plugins.configs.editor.accelerated-jk"),
-}
-
--- autopairs syntax
-editor["altermo/ultimate-autopair.nvim"] = {
-    lazy = true,
-    event = "InsertEnter",
-    config = load("plugins.configs.editor.ultimate-autopair"),
-}
-
--- Utility for commenting/uncommenting
-editor["tpope/vim-commentary"] = {
-    lazy = true,
-    event = { "CursorHold", "CursorHoldI" },
-}
-
--- Treesitter
+-- Language/grammar syntax highlighting
 editor["nvim-treesitter/nvim-treesitter"] = {
     lazy = true,
     event = { "BufReadPost" },
     dependencies = {
         { "abecodes/tabout.nvim" },
         { "nvim-treesitter/nvim-treesitter-textobjects" },
-        -- this plugin is broken :( { "mrjones2014/nvim-ts-rainbow" },
         { "JoosepAlviste/nvim-ts-context-commentstring" },
         { "mfussenegger/nvim-treehopper" },
         { "andymass/vim-matchup" },
@@ -50,19 +29,42 @@ editor["nvim-treesitter/nvim-treesitter"] = {
     config = load("plugins.configs.editor.nvim-treesitter"),
 }
 
--- Trailing whitespace shows up red
+-- Accelerates j/k keystrokes
+editor["rainbowhxch/accelerated-jk.nvim"] = {
+    lazy = true,
+    event = "VeryLazy",
+    config = load("plugins.configs.editor.accelerated-jk"),
+}
+
+-- Autocloses parenthesis, brackets and braces
+editor["altermo/ultimate-autopair.nvim"] = {
+    lazy = true,
+    event = "InsertEnter",
+    config = load("plugins.configs.editor.ultimate-autopair"),
+}
+
+-- Utility for quickly commenting/uncommenting code
+editor["tpope/vim-commentary"] = {
+    lazy = true,
+    event = { "CursorHold", "CursorHoldI" },
+}
+
+-- Makes trailing whitespace shows up red
 editor["ntpeters/vim-better-whitespace"] = {
     lazy = true,
     event = "InsertEnter",
 }
 
+-- Editorconfig respects editorconfig files
 editor["gpanders/editorconfig.nvim"] = {}
 
-editor["utilyre/barbecue.nvim"] = {
+-- File + symbol breadcrumbs
+editor["Bekaboo/dropbar.nvim"] = {
     dependencies = {
-        { "SmiteshP/nvim-navic" },
-        { "nvim-tree/nvim-web-devicons" },
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make"
     },
-}
+    config = load("plugins.configs.editor.dropbar")
+};
 
 return editor

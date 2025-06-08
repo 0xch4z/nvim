@@ -40,11 +40,12 @@ local mappings = {
     ["n|<leader>mp"] = cmd("MindOpenProject"):noremap():desc("mind: open project"),
     -- Misc
     ["n|<leader>mv"] = cmd("Glow"):noremap():desc("markdown: preview"),
-    ["n|hh"] = cmd("lua require'harpoon.ui'.toggle_quick_menu()"):desc("harpoon: ui"),
-    ["n|hm"] = cmd("lua require'harpoon.mark'.add_file()"):desc("harpoon: add"),
-    ["n|hp"] = cmd("lua require'harpoon.ui'.nav_prev()"):noremap():desc("harpoon: nav prev"),
-    ["n|hn"] = cmd("lua require'harpoon.ui'.nav_next()"):noremap():desc("harpoon: nav next"),
-    ["n|<leader>/"] = cmd("HopChar1"):noremap():desc("goto: character"),
+    ["n|<leader>hh"] = cmd("lua require'harpoon.ui'.toggle_quick_menu()"):desc("harpoon: ui"),
+    ["n|<leader>hm"] = cmd("lua require'harpoon.mark'.add_file()"):desc("harpoon: add"),
+    ["n|<leader>hn"] = cmd("lua require'harpoon.ui'.nav_prev()"):noremap():desc("harpoon: nav prev"),
+    ["n|<leader>hp"] = cmd("lua require'harpoon.ui'.nav_next()"):noremap():desc("harpoon: nav next"),
+    ["n|;;"] = cmd("HopChar1"):noremap():desc("goto: character"),
+    ["n|;w"] = cmd("HopWord"):noremap():desc("goto: word"),
 }
 
 map.register_keys(mappings)

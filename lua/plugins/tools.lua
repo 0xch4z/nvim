@@ -121,6 +121,7 @@ tools["rmagatti/auto-session"] = {
 }
 
 tools["smoka7/hop.nvim"] = {
+    tag = "v2.7.2",
     config = load("plugins.configs.tools.hop")
 }
 
