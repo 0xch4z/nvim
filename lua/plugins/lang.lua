@@ -16,4 +16,8 @@ lang["someone-stole-my-name/yaml-companion.nvim"] = {
     },
 }
 
+lang["jglasovic/venv-lsp.nvim"] = {
+    config = load("plugins.configs.lang.venv-lsp")
+}
+
 return lang
