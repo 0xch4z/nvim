@@ -19,7 +19,7 @@ util.opt("synmaxcol", 240)      -- don't process syntax of 240+ char line
 util.opt("signcolumn", "yes")   -- allow signs alongside line numbers
 util.opt("number", true)        -- number lines
 
-util.highlight_bg("ColorColumn", "Red")
+-- util.highlight_bg("ColorColumn", "Red")
 
 -- Global text defaults
 util.opt("expandtab", true)   -- use spaces instead of tabs
