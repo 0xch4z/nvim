@@ -14,7 +14,7 @@ local BUFFER_OPTS = {
 }
 
 local WINDOW_OPTS = {
-	"colorcolumn",
+    "colorcolumn",
     "linebreak",
     "wrap"
 }
@@ -71,7 +71,7 @@ end
 -- width sets text width
 function Language:width(n)
     self.config.editor.textwidth = n
-	self.config.editor.colorcolumn = tostring(n)
+    self.config.editor.colorcolumn = tostring(n)
     return self
 end
 
@@ -84,7 +84,7 @@ end
 
 -- hard_wrap breaks a line after the n-th character
 function Language:hard_wrap(n)
-	self:width(n or 80)
+    self:width(n or 80)
     self.config.editor.wrap = true
     self.config.editor.linebreak = true
     return self
@@ -185,7 +185,7 @@ function Language:_apply_configuration()
         callback = function(event)
             local buf = event.buf
 
-			log:trace("adjusting editor settings for %s (buffer:)", self.name)
+            log:trace("adjusting editor settings for %s (buffer:)", self.name)
 
             -- if editorconfig is present in the root directory, we'll use that
             -- instead of the language's default editor settings.
@@ -211,7 +211,6 @@ function Language:_apply_configuration()
                         vim.api.nvim_set_option_value(option, value, {})
                     end
                 end
-
             end
 
             -- apply language-specific keymaps
