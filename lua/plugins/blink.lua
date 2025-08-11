@@ -1,28 +1,28 @@
 return {
-	'saghen/blink.nvim',
+	"saghen/blink.nvim",
 	keys = {
 		-- chartoggle
 		{
-			';',
+			";",
 			function()
-				require('blink.chartoggle').toggle_char_eol(';')
+				require("blink.chartoggle").toggle_char_eol(";")
 			end,
-			mode = { 'n', 'v' },
-			desc = 'Toggle ; at eol',
+			mode = { "n", "v" },
+			desc = "Toggle ; at eol",
 		},
 		{
-			',',
+			",",
 			function()
-				require('blink.chartoggle').toggle_char_eol(',')
+				require("blink.chartoggle").toggle_char_eol(",")
 			end,
-			mode = { 'n', 'v' },
-			desc = 'Toggle , at eol',
+			mode = { "n", "v" },
+			desc = "Toggle , at eol",
 		},
 
 		-- tree
-		{ '<C-e>',     '<cmd>BlinkTree reveal<cr>',       desc = 'Reveal current file in tree' },
-		{ '<leader>E', '<cmd>BlinkTree toggle<cr>',       desc = 'Reveal current file in tree' },
-		{ '<leader>e', '<cmd>BlinkTree toggle-focus<cr>', desc = 'Toggle file tree focus' },
+		{ "<C-e>", "<cmd>BlinkTree reveal<cr>", desc = "Reveal current file in tree" },
+		{ "<leader>E", "<cmd>BlinkTree toggle<cr>", desc = "Reveal current file in tree" },
+		{ "<leader>e", "<cmd>BlinkTree toggle-focus<cr>", desc = "Toggle file tree focus" },
 	},
 	-- all modules handle lazy loading internally
 	lazy = false,
@@ -33,15 +33,15 @@ return {
 		-- tree = { enabled = true }
 	},
 	{
-		'saghen/blink.cmp',
-		dependencies = {'rafamadriz/friendly-snippets'},
+		"saghen/blink.cmp",
+		dependencies = { "rafamadriz/friendly-snippets" },
 
 		version = "v0.8.2",
 
 		opts = {
 			keymap = {
-				preset = 'enter',
-				['<Tab>'] = {
+				preset = "enter",
+				["<Tab>"] = {
 					function(cmp)
 						if cmp.snippet_active() then
 							return cmp.accept()
@@ -49,10 +49,10 @@ return {
 							return cmp.select_and_accept()
 						end
 					end,
-					'snippet_forward',
-					'fallback'
+					"snippet_forward",
+					"fallback",
 				},
-				['<S-Tab>'] = { 'snippet_backward', 'fallback' },
+				["<S-Tab>"] = { "snippet_backward", "fallback" },
 			},
 
 			appearance = {
@@ -62,54 +62,58 @@ return {
 				use_nvim_cmp_as_default = true,
 				-- Set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
 				-- Adjusts spacing to ensure icons are aligned
-				nerd_font_variant = 'mono'
+				nerd_font_variant = "mono",
 			},
 
-      signature = {
-        enabled = true,
-        trigger = { },
-        window = {
+			signature = {
+				enabled = true,
+				trigger = {},
+				window = {
 
-          border = "rounded",
-          direction_priority = { "s", "n" },
-          --show_documentation = true
-        }
-      },
+					border = "rounded",
+					direction_priority = { "s", "n" },
+					--show_documentation = true
+				},
+			},
 			sources = {
-				default = { 'lsp', 'path', 'snippets', 'buffer' },
-        providers = {
+				default = { "lsp", "path", "snippets", "buffer" },
+				providers = {
 					lsp = {
 						name = "lsp",
 						enabled = true,
 						module = "blink.cmp.sources.lsp",
 						score_offset = 95,
 					},
-          snippets = {
-            name = "snippets",
-            module = "blink.cmp.sources.snippets",
-            min_keyword_length = 2,
-            score_offset = 85
-          }
-        }
+					snippets = {
+						name = "snippets",
+						module = "blink.cmp.sources.snippets",
+						min_keyword_length = 2,
+						score_offset = 85,
+					},
+				},
 			},
 			completion = {
-				list = { selection = function(ctx) return ctx.mode == 'cmdline' and 'auto_insert' or 'preselect' end },
+				list = {
+					selection = function(ctx)
+						return ctx.mode == "cmdline" and "auto_insert" or "preselect"
+					end,
+				},
 				documentation = {
-          auto_show = true,
-          auto_show_delay_ms = 250,
-          window = {
-            border = "rounded"
-          }
-        },
+					auto_show = true,
+					auto_show_delay_ms = 250,
+					window = {
+						border = "rounded",
+					},
+				},
 				menu = {
 					draw = {
 						columns = {
-							{ "label",     "label_description", gap = 1 },
-							{ "kind_icon", "kind" }
+							{ "label", "label_description", gap = 1 },
+							{ "kind_icon", "kind" },
 						},
-					}
-				}
+					},
+				},
 			},
 		} --[[@as blink.cmp.Config]],
-	}
+	},
 }--[[@as table<LazyPluginSpec>]]
