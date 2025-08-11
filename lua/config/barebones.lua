@@ -19,6 +19,12 @@ vim.o.tabstop = 4 -- 1 tab == 4 spaces
 -- LSP keymaps
 vim.keymap.set("n", "gd", vim.lsp.buf.definition)
 vim.keymap.set("n", "gr", vim.lsp.buf.references)
+vim.keymap.set("n", "<leader>ld", vim.diagnostic.open_float)
+
+vim.diagnostic.config({
+	only_current_line = true,
+	float = true,
+}--[[@as vim.diagnostic.Opts]])
 
 -- debloat unnecessary plugins
 local disabled_built_ins = {
