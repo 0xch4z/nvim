@@ -7,6 +7,15 @@ return
     "nvim-neotest/nvim-nio",
     "fredrikaverpil/neotest-golang"
   },
+  keys = {
+    {
+      "tt",
+      function()
+        require("neotest").run()
+      end,
+      desc = "test: closest",
+    }
+  },
   config = function ()
     local neotest = require("neotest")
 
