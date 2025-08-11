@@ -1,1 +1,2 @@
-print("blank canvas")
+require("config")
+require("core")
