@@ -110,9 +110,13 @@ function M.bootstrap(extra_specs)
   require("lazy").setup({
     spec = {
       { import = "plugins" },
-      unpack(extra_specs)
+      unpack(extra_specs),
+    },
+    change_detection = {
+      enabled = true,
+      notify = false,
     }
-  })
+  }--[[@as LazyConfig]])
 end
 
 return M
