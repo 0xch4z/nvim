@@ -1,3 +1,7 @@
 .mind/
 parser
 .startuptime
+
+
+# generated from .luarc.tmpl.json by ./lua/core/lazy.lua#generate_luarc/0
+.luarc.json
