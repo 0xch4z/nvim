@@ -1,5 +1,6 @@
 return {
 	"j-hui/fidget.nvim",
+	priority = 99,
 	lazy = false,
 	config = function()
 		require("fidget").setup({
