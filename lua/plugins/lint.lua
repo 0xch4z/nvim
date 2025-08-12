@@ -4,7 +4,7 @@ return {
 	event = "BufWritePost",
 	config = function()
 		local linters_by_ft = {
-			go = { "gofmt" },
+			go = { "golangcilint" },
 			lua = { "luacheck" },
 		}
 		require("lint").linters_by_ft = linters_by_ft
