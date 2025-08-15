@@ -7,6 +7,7 @@ return {
 		formatters_by_ft = {
 			go = { "gofmt" },
 			lua = { "stylua" },
+			nix = { "nixfmt" },
 		},
 		format_after_save = {
 			async = true,
