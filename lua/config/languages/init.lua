@@ -1,3 +1,5 @@
 require("config.languages.go")
 require("config.languages.lua")
 require("config.languages.nix")
+require("config.languages.python")
+require("config.languages.terraform")

@@ -21,6 +21,7 @@ local lsp = require("core.lsp")
 ---@field plugins table<LazyPluginSpec> language specific plugins to load
 ---@field keymaps table<string> TODO
 ---@field servers table<string, ServerConfig> language server configurations
+---@field lazy_servers table<string, fun():ServerConfig> language server configured on ft
 local Language = {}
 Language.__index = Language
 
@@ -64,6 +65,7 @@ function Language.new(name)
 
 			plugins = {},
 			servers = {},
+			lazy_servers = {},
 		}
 
 	setmetatable(lang, Language)
@@ -80,27 +82,14 @@ function Language:filetypes(...)
 end
 
 ---@param name string name of the lsp configuration
----@param config ServerConfig lsp configuration
+---@param config ServerConfig|fun():ServerConfig lsp configuration
 ---@return Language
 function Language:server(name, config)
-	-- wrap cmd as a table
-	if type(config.cmd) == "string" then
-		config.cmd = { config.cmd }
+	if type(config) == "function" then
+		self.lazy_servers[name] = config
+	else
+		self.servers[name] = config
 	end
-
-	-- default lsp config filetypes to all defined for the language
-	if config.filetypes == nil then
-		config.filetypes = self.filetypes
-	end
-
-	-- .git is probably a sane default top-level root marker
-	if config.root_markers == nil then
-		config.root_markers = { ".git" }
-	end
-
-	--config.capabilities = lsp.default_capabilities({})
-
-	self.servers[name] = config
 
 	return self
 end
@@ -152,10 +141,45 @@ function Language:hard_wrap(n)
 	return self
 end
 
+---@param name string
+---@param config ServerConfig
+function Language:_setup_server(name, config)
+	-- wrap cmd as a table
+	if type(config.cmd) == "string" then
+		config.cmd = { config.cmd }
+	end
+
+	-- default lsp config filetypes to all defined for the language
+	if config.filetypes == nil then
+		config.filetypes = self.filetypes
+	end
+
+	-- .git is probably a sane default top-level root marker
+	if config.root_markers == nil then
+		config.root_markers = { ".git" }
+	end
+
+	if config.capabilities == nil then
+		config.capabilities = lsp.default_capabilities({})
+	end
+
+	vim.lsp.config[name] = config
+	vim.lsp.enable(name)
+end
+
 function Language:_setup_servers()
 	for server, config in pairs(self.servers) do
-		vim.lsp.config[server] = config ---@type vim.lsp.ClientConfig
-		vim.lsp.enable(server)
+		self:_setup_server(server, config)
+		self.servers[server] = nil
+	end
+end
+
+function Language:_setup_lazy_servers()
+	for server, config_fn in pairs(self.lazy_servers) do
+		self:_setup_server(server, config_fn())
+		self.lazy_servers[server] = nil
+
+		vim.notify("configured lazy lsp " .. server, vim.log.levels.INFO)
 	end
 end
 
@@ -205,6 +229,8 @@ function Language:_setup_augroup()
 					silent = true,
 				})
 			end
+
+			self:_setup_lazy_servers()
 		end,
 	})
 
