@@ -6,27 +6,27 @@ return {
 	},
 	keys = {
 		{
-			";;",
+			",,",
 			mode = { "n", "x", "o" },
 			"<cmd>HopChar1<cr>",
 			desc = "jump: character",
 		},
 		{
-			";l",
+			",l",
 			mode = { "n", "x", "o" },
-			"<cmd>HopWord<cr>",
+			"<cmd>HopChar1CurrentLine<cr>",
 			desc = "jump: character in-line",
 		},
 		{
-			",,",
+			";;",
 			mode = { "n", "x", "o" },
 			"<cmd>HopWord<cr>",
 			desc = "jump: word",
 		},
 		{
-			",l",
+			";l",
 			mode = { "n", "x", "o" },
-			"<cmd>HopWord<cr>",
+			"<cmd>HopWordCurrentLine<cr>",
 			desc = "jump: word in-line",
 		},
 	},
