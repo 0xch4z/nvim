@@ -8,6 +8,7 @@ return {
 			go = { "gofmt" },
 			lua = { "stylua" },
 			nix = { "nixfmt" },
+			terraform = { "terraform_fmt" },
 		},
 		format_after_save = {
 			async = true,
