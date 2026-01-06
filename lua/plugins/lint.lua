@@ -7,7 +7,6 @@ return {
 			go = { "golangcilint" },
 			lua = { "luacheck" },
 		}
-		require("lint").linters_by_ft = linters_by_ft
 
 		vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 			callback = function()

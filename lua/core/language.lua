@@ -17,7 +17,7 @@ local lsp = require("core.lsp")
 ---@field name string name of the language
 ---@field autocmds table<string> TODO
 ---@field editor LanguageEditorConfig editor config overrides for the language
----@field filetypes table<string> filetypes associated with the language
+---@field ftypes table<string> filetypes associated with the language
 ---@field plugins table<LazyPluginSpec> language specific plugins to load
 ---@field keymaps table<string> TODO
 ---@field servers table<string, ServerConfig> language server configurations
@@ -59,7 +59,7 @@ function Language.new(name)
 
 			-- default to the name of the language as a filetype.
 			-- can be overriden with :filetypes(...)
-			filetypes = { name },
+			ftypes = { name },
 
 			keymaps = {},
 
@@ -77,7 +77,7 @@ end
 ---@param ... string filetypes to associate with this language
 ---@return Language
 function Language:filetypes(...)
-	self.filetypes = arg
+	self.ftypes = unpack(arg)
 	return self
 end
 
@@ -151,7 +151,7 @@ function Language:_setup_server(name, config)
 
 	-- default lsp config filetypes to all defined for the language
 	if config.filetypes == nil then
-		config.filetypes = self.filetypes
+		config.filetypes = self.ftypes
 	end
 
 	-- .git is probably a sane default top-level root marker
@@ -188,7 +188,7 @@ function Language:_setup_augroup()
 
 	-- add root autocmd for filetype
 	vim.api.nvim_create_autocmd("FileType", {
-		pattern = self.filetypes,
+		pattern = self.ftypes,
 		group = augroup,
 		callback = function(event)
 			local buf = event.buf
@@ -248,7 +248,7 @@ end
 ---@param spec LazyPluginSpec
 function Language:plugin(spec)
 	if spec.ft == nil then
-		spec.ft = self.filetypes
+		spec.ft = self.ftypes
 	end
 
 	table.insert(self.plugins, spec)

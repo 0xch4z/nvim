@@ -10,6 +10,9 @@ vim.o.synmaxcol = 240 -- don't syntax highlight 240+ char lines
 vim.o.number = true -- numbered lines
 vim.o.signcolumn = "yes" -- always draw the signcolumn
 
+-- Editor
+vim.o.swapfile = false -- disable swap files
+
 -- Text defaults
 vim.o.expandtab = true -- use spaces instead of tabs
 vim.o.smartindent = true -- auto-indent new lines
