@@ -45,6 +45,32 @@ local WINDOW_OPTS = {
 	"wrap",
 }
 
+local editorconfig_cache = {}
+
+---@param dir string?
+---@return boolean
+local function has_editorconfig(dir)
+	if not dir or dir == "" then
+		return false
+	end
+
+	local norm = vim.fs.normalize and vim.fs.normalize(dir) or dir
+	local cached = editorconfig_cache[norm]
+	if cached ~= nil then
+		return cached
+	end
+
+	local found = vim.fs.find(".editorconfig", {
+		upward = true,
+		path = norm,
+		type = "file",
+	})[1]
+
+	local has_file = found ~= nil
+	editorconfig_cache[norm] = has_file
+	return has_file
+end
+
 ---@param name string Name of the language
 ---@return Language
 function Language.new(name)
@@ -77,7 +103,7 @@ end
 ---@param ... string filetypes to associate with this language
 ---@return Language
 function Language:filetypes(...)
-	self.ftypes = unpack(arg)
+	self.ftypes = { ... }
 	return self
 end
 
@@ -192,13 +218,12 @@ function Language:_setup_augroup()
 		group = augroup,
 		callback = function(event)
 			local buf = event.buf
+			local win = event.win or vim.api.nvim_get_current_win()
 
 			-- Is there an editorconfig in the root of this workspace?
-			local editorconfig_root = vim.fs.find(".editorconfig", {
-				upward = true,
-				path = vim.fn.expand("%:p:h"), -- current file dir
-				type = "file",
-			})[1]
+			local bufname = vim.api.nvim_buf_get_name(buf)
+			local bufdir = bufname ~= "" and vim.fs.dirname(bufname) or nil
+			local editorconfig_root = has_editorconfig(bufdir)
 
 			-- if editorconfig is present in the root directory, we'll use that
 			-- instead of the language's default editor settings. Otherwise we
@@ -207,7 +232,7 @@ function Language:_setup_augroup()
 				-- not editorconfig found, use language default editor settings
 				for _, option in ipairs(BUFFER_OPTS) do
 					local value = self.editor[option]
-					if type(value) ~= nil then
+					if value ~= nil then
 						vim.api.nvim_set_option_value(option, value, { buf = buf })
 					end
 				end
@@ -215,8 +240,8 @@ function Language:_setup_augroup()
 				-- NB: wrap, linebreak, etc. cannot be scoped to a buffer
 				for _, option in ipairs(WINDOW_OPTS) do
 					local value = self.editor[option]
-					if type(value) ~= nil then
-						vim.api.nvim_set_option_value(option, value, {})
+					if value ~= nil then
+						vim.api.nvim_set_option_value(option, value, { win = win })
 					end
 				end
 			end
@@ -237,7 +262,7 @@ function Language:_setup_augroup()
 	-- register any additional language autocmds
 	for _, autocmd in ipairs(self.autocmds) do
 		vim.api.nvim_create_autocmd(autocmd.event, {
-			pattern = self.name,
+			pattern = self.ftypes,
 			group = augroup,
 			callback = autocmd.callback,
 			desc = autocmd.desc,

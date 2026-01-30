@@ -1,6 +1,5 @@
 return {
 	"nvim-neotest/neotest",
-	event = "InsertEnter",
 	dependencies = {
 		"nvim-treesitter/nvim-treesitter",
 		"nvim-neotest/nvim-nio",
@@ -27,7 +26,7 @@ return {
 			discovery = {
 				enable = true,
 			},
-			log_level = vim.log.levels.DEBUG,
+			log_level = vim.log.levels.WARN,
 		})
 	end,
 } --[[@as LazyPluginSpec]]

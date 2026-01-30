@@ -29,6 +29,9 @@ vim.diagnostic.config({
 	float = true,
 }--[[@as vim.diagnostic.Opts]])
 
+-- reduce LSP log I/O
+vim.lsp.set_log_level("ERROR")
+
 -- debloat unnecessary plugins
 local disabled_built_ins = {
 	"2html_plugin",

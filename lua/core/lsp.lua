@@ -50,6 +50,8 @@ function M.default_capabilities(override)
 			},
 		}),
 	}
+
+	return capabilities
 end
 
 return M
