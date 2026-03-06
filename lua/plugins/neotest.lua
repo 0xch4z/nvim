@@ -4,14 +4,23 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		"nvim-neotest/nvim-nio",
 		"fredrikaverpil/neotest-golang",
+		"rouge8/neotest-rust",
 	},
+	ft = { "go", "rust" },
 	keys = {
 		{
-			"tt",
+			"<leader>tt",
 			function()
-				require("neotest").run()
+				require("neotest").run.run()
 			end,
-			desc = "test: closest",
+			desc = "test: nearest",
+		},
+		{
+			"<leader>tf",
+			function()
+				require("neotest").run.run(vim.fn.expand("%"))
+			end,
+			desc = "test: file",
 		},
 	},
 	config = function()
@@ -22,6 +31,7 @@ return {
 				require("neotest-golang")({
 					go_test_args = { "-v", "-race", "-count=1", "-timeout=60s" },
 				}),
+				require("neotest-rust"),
 			},
 			discovery = {
 				enable = true,
