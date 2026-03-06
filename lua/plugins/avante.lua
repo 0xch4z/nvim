@@ -8,7 +8,7 @@ return {
 	---@type avante.Config
 	---@diagnostic disable-next-line: missing-fields
 	opts = {
-		provider = "codex",
+		provider = os.getenv("AVANTE_DEFAULT_PROVIDER") or "codex",
 		auto_suggestions_provider = nil,
 
 		behaviour = {
@@ -32,6 +32,12 @@ return {
 				env = vim.tbl_extend("force", vim.env, {
 					NODE_NO_WARNINGS = "1",
 					OPENAI_API_KEY = os.getenv("OPENAI_API_KEY"),
+				}),
+			},
+			["claude-code"] = {
+				command = "claude",
+				env = vim.tbl_extend("force", vim.env, {
+					NODE_NO_WARNINGS = "1",
 				}),
 			},
 		},
