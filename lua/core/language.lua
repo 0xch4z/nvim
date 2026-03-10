@@ -172,7 +172,9 @@ end
 function Language:_setup_server(name, config)
 	-- wrap cmd as a table
 	if type(config.cmd) == "string" then
-		config.cmd = { config.cmd }
+		config.cmd = {
+			config.cmd --[[@as string]],
+		}
 	end
 
 	-- default lsp config filetypes to all defined for the language
