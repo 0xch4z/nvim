@@ -7,6 +7,8 @@ local userhost = os.getenv("NIX_USERHOST")
 local is_nix = nil
 local nix_platform = os.getenv("NIX_VARIANT")
 
+local PLATFORM_DARWIN = "darwin"
+
 ---Check if file exists
 ---@param path string
 ---@return boolean
@@ -49,18 +51,18 @@ end
 
 ---@return string
 function M.get_hostname()
-	if hostname then
+	if type(hostname) == "string" then
 		return hostname
 	end
 
-	hostname = M.cmdout("/bin/hostname")
+	hostname = M.cmdout("hostname")
 	return hostname
 end
 
 ---Returns $OS@$HOSTNAME
 ---@return string?
 function M.get_userhost()
-	if userhost then
+	if type(userhost) == "string" then
 		return userhost
 	end
 
@@ -72,7 +74,7 @@ end
 ---Get the system's nix "platform" or nil
 ---@return string?
 function M.get_nix_platform()
-	if nix_platform then
+	if type(nix_platform) == "string" then
 		return nix_platform
 	end
 
@@ -80,9 +82,9 @@ function M.get_nix_platform()
 		return nil
 	end
 
-	if string.lower(M.cmdout("uname -s")) == "darwin" then
+	if string.lower(M.cmdout("uname -s")) == PLATFORM_DARWIN then
 		-- this is macos
-		return "darwin"
+		return PLATFORM_DARWIN
 	end
 
 	is_nix = false

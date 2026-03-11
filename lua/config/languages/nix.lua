@@ -8,23 +8,25 @@ Language.new("nix")
 			cmd = { "nixd" },
 			--See https://github.com/nix-community/nixd/blob/main/nixd/docs/configuration.md
 			settings = {
-				nixpkgs = {
-					nixpkgs = "import <nixpkgs> { }",
+				nixd = {
+					nixpkgs = {
+						expr = "import <nixpkgs> { }",
+					},
+					options = system.get_is_nix() and {
+						[system.get_nix_platform()] = {
+							expr = '(builtins.getFlake ("git+file://" + toString ./.)).'
+								.. system.get_nix_platform()
+								.. 'Configurations."'
+								.. system.get_hostname()
+								.. '".options',
+						},
+						home_manager = {
+							expr = '(builtins.getFlake ("git+file://" + toString ./.)).homeConfigurations."'
+								.. system.get_userhost()
+								.. '".options',
+						},
+					} or {},
 				},
-				options = system.get_is_nix() and {
-					[system.get_nix_platform()] = {
-						expr = '(builtins.getFlake ("git+file://" + toString ./.)).'
-							.. system.get_nix_platform()
-							.. 'Configurations."'
-							.. system.get_hostname()
-							.. '".options',
-					},
-					home_manager = {
-						expr = '(builtins.getFlake ("git+file://" + toString ./.)).homeConfigurations."'
-							.. system.get_userhost()
-							.. '".options',
-					},
-				} or {},
 			},
 		}
 	end)
