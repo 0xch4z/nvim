@@ -10,4 +10,12 @@ return {
 	keys = {
 		{ "<leader>gg", "<cmd>Neogit<cr>", desc = "Show Neogit UI" },
 	},
+
+	---@type NeogitConfig
+	opts = {
+		kind = "floating",
+		popup = {
+			kind = "floating",
+		},
+	},
 } --[[@as LazyPluginSpec]]
