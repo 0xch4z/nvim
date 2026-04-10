@@ -147,6 +147,81 @@ local function build_doc_symbol_items(result, opts)
 	return items
 end
 
+local saved_pickers = {}
+
+local function save_picker(key, extra)
+	local pick = require("mini.pick")
+	if not pick.is_picker_active() then
+		return
+	end
+
+	local opts = pick.get_picker_opts() or {}
+	local matches = pick.get_picker_matches() or {}
+	local source = opts.source or {}
+
+	saved_pickers[key] = vim.tbl_extend("force", {
+		items = pick.get_picker_items(),
+		name = source.name or key,
+		show = source.show,
+		current = matches.current_ind,
+	}, extra or {})
+
+	vim.notify("Saved " .. (source.name or key), vim.log.levels.INFO)
+end
+
+local function restore_picker(key)
+	local pick = require("mini.pick")
+	local saved = saved_pickers[key]
+	if not saved then
+		vim.notify("No saved search for " .. key, vim.log.levels.WARN)
+		return
+	end
+
+	local saved_current = saved.current
+	local saved_show = saved.show
+	local did_restore_index = false
+
+	pick.start({
+		source = {
+			items = saved.items,
+			name = saved.name .. " (saved)",
+			show = function(buf_id, items, query)
+				if saved_show then
+					saved_show(buf_id, items, query)
+				else
+					pick.default_show(buf_id, items, query)
+				end
+
+				if not did_restore_index and saved_current then
+					did_restore_index = true
+					vim.schedule(function()
+						if pick.is_picker_active() then
+							pick.set_picker_match_inds({ saved_current }, "current")
+						end
+					end)
+				end
+			end,
+		},
+	})
+end
+
+local function picker_mappings(key, extra)
+	return {
+		save = {
+			char = "<C-s>",
+			func = function()
+				save_picker(key, extra)
+			end,
+		},
+		restore = {
+			char = "<C-r>",
+			func = function()
+				restore_picker(key)
+			end,
+		},
+	}
+end
+
 return {
 	"echasnovski/mini.nvim",
 	config = function()
@@ -159,11 +234,21 @@ return {
 	keys = function()
 		local pick = require("mini.pick")
 
-		return {
+		local keys = {
+			{
+				"<leader>ff",
+				function()
+					pick.builtin.files({}, { mappings = picker_mappings("files") })
+				end,
+			},
+
 			{
 				"<leader>fg",
-				"<cmd>Pick grep_live<cr>",
+				function()
+					pick.builtin.grep_live({}, { mappings = picker_mappings("grep") })
+				end,
 			},
+
 			{
 				"<leader>fs",
 				function()
@@ -230,10 +315,13 @@ return {
 									pick.default_preview(buf_id, item)
 								end,
 							},
+							mappings = picker_mappings("symbols", { show = show }),
 						})
 					end)
 				end,
 			},
+
+			-- workspace symbols
 			{
 				"<leader>fw",
 				function()
@@ -357,5 +445,7 @@ return {
 				end,
 			},
 		}
+
+		return keys
 	end,
 } --[[@as LazyPluginSpec]]
