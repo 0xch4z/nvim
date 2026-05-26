@@ -205,8 +205,103 @@ local function restore_picker(key)
 	})
 end
 
+local function picker_items_to_entries(items)
+	local entries = {}
+	for _, item in ipairs(items) do
+		if type(item) == "string" then
+			-- NB: mini.pick grep uses null-byte separators
+			local parts = vim.split(item, "\0")
+			if #parts >= 4 then
+				table.insert(entries, {
+					filename = parts[1],
+					lnum = tonumber(parts[2]),
+					col = tonumber(parts[3]),
+					text = parts[4],
+				})
+			elseif #parts >= 2 then
+				table.insert(entries, {
+					filename = parts[1],
+					lnum = tonumber(parts[2]) or 1,
+					text = parts[#parts],
+				})
+			else
+				-- plain file path
+				local clean = item:gsub("%z", "")
+				table.insert(entries, { filename = clean, lnum = 1, text = clean })
+			end
+		elseif type(item) == "table" then
+			table.insert(entries, {
+				filename = item.path,
+				bufnr = item.buf,
+				lnum = item.lnum or 1,
+				col = item.col,
+				end_lnum = item.end_lnum,
+				end_col = item.end_col,
+				text = item.text or item.path or "",
+			})
+		end
+	end
+	return entries
+end
+
+local function send_to_list(loclist)
+	local pick = require("mini.pick")
+	local matches = pick.get_picker_matches() or {}
+
+	local items = (#matches.marked > 0) and matches.marked or matches.all
+	if not items or #items == 0 then
+		return
+	end
+
+	local entries = picker_items_to_entries(items)
+	if #entries == 0 then
+		return
+	end
+
+	local state = pick.get_picker_state() or {}
+	local target_win = (state.windows or {}).target
+
+	pick.stop()
+	vim.schedule(function()
+		local win = (target_win and vim.api.nvim_win_is_valid(target_win)) and target_win or 0
+
+		local existing_winid
+		if loclist then
+			existing_winid = vim.fn.getloclist(win, { winid = 0 }).winid
+		else
+			existing_winid = vim.fn.getqflist({ winid = 0 }).winid
+		end
+
+		local action = (existing_winid ~= 0) and "a" or " "
+		local props = { items = entries }
+		if action == " " then
+			props.title = "Pick results"
+		end
+
+		if loclist then
+			vim.fn.setloclist(win, {}, action, props)
+		else
+			vim.fn.setqflist({}, action, props)
+		end
+
+		require("quicker").open(loclist and { loclist = true } or nil)
+	end)
+end
+
 local function picker_mappings(key, extra)
 	return {
+		send_to_qf = {
+			char = "<C-q>",
+			func = function()
+				send_to_list(false)
+			end,
+		},
+		send_to_loclist = {
+			char = "<C-l>",
+			func = function()
+				send_to_list(true)
+			end,
+		},
 		save = {
 			char = "<C-s>",
 			func = function()
@@ -224,6 +319,7 @@ end
 
 return {
 	"echasnovski/mini.nvim",
+	dependencies = { "stevearc/quicker.nvim" },
 	config = function()
 		require("mini.pairs").setup()
 		require("mini.comment").setup()
