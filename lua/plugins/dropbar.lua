@@ -7,24 +7,26 @@ return {
 		local utils = require("dropbar.utils")
 
 		dropbar.setup({
-			sources = function(buf, _)
-				if vim.bo[buf].ft == "markdown" then
+			bar = {
+				sources = function(buf, _)
+					if vim.bo[buf].ft == "markdown" then
+						return {
+							sources.markdown,
+						}
+					end
+					if vim.bo[buf].buftype == "terminal" then
+						return {
+							sources.terminal,
+						}
+					end
 					return {
-						sources.markdown,
+						utils.source.fallback({
+							sources.lsp,
+							sources.treesitter,
+						}),
 					}
-				end
-				if vim.bo[buf].buftype == "terminal" then
-					return {
-						sources.terminal,
-					}
-				end
-				return {
-					utils.source.fallback({
-						sources.lsp,
-						sources.treesitter,
-					}),
-				}
-			end,
+				end,
+			},
 		})
 	end,
 	keys = {
