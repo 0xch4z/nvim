@@ -1,4 +1,5 @@
 require("config.languages.bash")
+require("config.languages.cpp")
 require("config.languages.go")
 require("config.languages.lua")
 require("config.languages.makefile")
