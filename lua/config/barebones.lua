@@ -24,6 +24,8 @@ vim.keymap.set("n", "gd", vim.lsp.buf.definition)
 vim.keymap.set("n", "gr", vim.lsp.buf.references)
 vim.keymap.set("n", "<leader>ld", vim.diagnostic.open_float)
 
+vim.keymap.set("n", "<leader>nh", "<cmd>nohlsearch<CR>", { desc = "Clear search highlights" })
+
 vim.diagnostic.config({
 	only_current_line = true,
 	float = true,
