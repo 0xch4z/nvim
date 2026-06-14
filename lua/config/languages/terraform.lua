@@ -5,5 +5,6 @@ Language.new("terraform")
 		cmd = { "terraform-ls", "serve" },
 		root_markers = { ".terraform", ".git" },
 	})
+	:formatters("terraform_fmt")
 	:spaces(2)
 	:register()

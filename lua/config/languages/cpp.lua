@@ -21,6 +21,7 @@ Language.new("cpp")
 			".git",
 		},
 	})
+	:formatters("clang-format")
 	:spaces(4)
 	:width(120)
 	:preserve_indent()

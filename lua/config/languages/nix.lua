@@ -30,6 +30,7 @@ Language.new("nix")
 			},
 		}
 	end)
+	:formatters("nixfmt")
 	:spaces(2)
 	:width(120)
 	:preserve_indent()

@@ -13,6 +13,11 @@ local lsp = require("core.lsp")
 ---@field smartindent? boolean
 ---@field cindent? boolean
 
+---@class LanguageFormatConfig
+---@field formatters? string[] formatters to run, in order
+---@field lsp_format? "fallback"|"prefer"|"first"|"last"|"never" when to use LSP
+---@field stop_after_first? boolean stop after the first formatter that succeeds
+
 ---@class Language
 ---@field name string name of the language
 ---@field autocmds table<string> TODO
@@ -22,6 +27,7 @@ local lsp = require("core.lsp")
 ---@field keymaps table<string> TODO
 ---@field servers table<string, ServerConfig> language server configurations
 ---@field lazy_servers table<string, fun():ServerConfig> language server configured on ft
+---@field format LanguageFormatConfig formatter configuration for the language
 local Language = {}
 Language.__index = Language
 
@@ -92,6 +98,8 @@ function Language.new(name)
 			plugins = {},
 			servers = {},
 			lazy_servers = {},
+
+			format = {},
 		}
 
 	setmetatable(lang, Language)
@@ -164,6 +172,33 @@ function Language:hard_wrap(n)
 	self:width(n or 80)
 	self.editor.wrap = true
 	self.editor.linebreak = true
+	return self
+end
+
+---Define the formatters to run for this language, in order
+---@param ... string formatter names
+---@return Language
+function Language:formatters(...)
+	self.format.formatters = { ... }
+	if self.format.lsp_format == nil then
+		self.format.lsp_format = "fallback"
+	end
+	return self
+end
+
+---Configure when to use LSP formatting
+---@param mode "fallback"|"prefer"|"first"|"last"|"never" lsp_format mode
+---@return Language
+function Language:lsp_format(mode)
+	self.format.lsp_format = mode or "fallback"
+	return self
+end
+
+---Stop after the first configured formatter that succeeds
+---@param enabled? boolean defaults to true
+---@return Language
+function Language:format_first(enabled)
+	self.format.stop_after_first = enabled ~= false
 	return self
 end
 
@@ -293,6 +328,34 @@ end
 --@return table<string, Language>
 function Language.all()
 	return registry
+end
+
+---@class FiletypeFormatter: string[]
+---@field lsp_format? "fallback"|"prefer"|"first"|"last"|"never"
+---@field stop_after_first? boolean
+
+---Build conform.nvim configuration for each registered language
+---@return table<string, FiletypeFormatter>
+function Language.formatters_by_ft()
+	local by_ft = {}
+
+	for _, lang in pairs(registry) do
+		local format = lang.format
+
+		if format.formatters and #format.formatters > 0 then
+			---@type FiletypeFormatter
+			local entry = vim.list_slice(format.formatters)
+
+			entry.lsp_format = format.lsp_format
+			entry.stop_after_first = format.stop_after_first
+
+			for _, ft in ipairs(lang.ftypes) do
+				by_ft[ft] = entry
+			end
+		end
+	end
+
+	return by_ft
 end
 
 return Language

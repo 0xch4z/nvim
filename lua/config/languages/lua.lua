@@ -7,5 +7,6 @@ Language.new("lua")
 			VIMRUNTIME = vim.env.VIMRUNTIME,
 		},
 	})
+	:formatters("stylua")
 	:tabs(4)
 	:register()
