@@ -8,6 +8,14 @@ return {
 
 		dropbar.setup({
 			bar = {
+				update_events = {
+					buf = {
+						"FileChangedShellPost",
+						"TextChanged",
+						"TextChangedI",
+						"ModeChanged",
+					},
+				},
 				sources = function(buf, _)
 					if vim.bo[buf].ft == "markdown" then
 						return {
