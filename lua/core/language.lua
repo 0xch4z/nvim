@@ -335,7 +335,7 @@ end
 ---@field stop_after_first? boolean
 
 ---Build conform.nvim configuration for each registered language
----@return table<string, FiletypeFormatter>
+---@return table<string, conform.FiletypeFormatter>
 function Language.formatters_by_ft()
 	local by_ft = {}
 

@@ -10,7 +10,7 @@ return {
 			formatters_by_ft = Language.formatters_by_ft(),
 			format_after_save = {
 				async = true,
-				timeout_ms = 500,
+				timeout_ms = 1000,
 			},
 		}
 	end,
