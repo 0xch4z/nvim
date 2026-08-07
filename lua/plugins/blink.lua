@@ -4,7 +4,7 @@ return {
 	event = "InsertEnter",
 	dependencies = { "rafamadriz/friendly-snippets" },
 
-	version = "v0.8.2",
+	version = "1.*",
 
 	opts = {
 		keymap = {
@@ -62,9 +62,14 @@ return {
 		},
 		completion = {
 			list = {
-				selection = function(ctx)
-					return ctx.mode == "cmdline" and "auto_insert" or "preselect"
-				end,
+				selection = {
+					preselect = function(ctx)
+						return ctx.mode ~= "cmdline"
+					end,
+					auto_insert = function(ctx)
+						return ctx.mode == "cmdline"
+					end,
+				},
 			},
 			documentation = {
 				auto_show = true,
