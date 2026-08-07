@@ -1,19 +1,21 @@
 ---@type LazyPluginSpec
 return {
 	"mfussenegger/nvim-lint",
-	event = "BufWritePost",
+	event = { "BufReadPost", "BufNewFile" },
 	config = function()
-		local linters_by_ft = {
+		local lint = require("lint")
+		lint.linters_by_ft = {
 			go = { "golangcilint" },
 			lua = { "luacheck" },
+			python = { "ruff" },
 		}
 
 		local group = vim.api.nvim_create_augroup("LintOnSave", { clear = true })
-		vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+		vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {
 			group = group,
 			callback = function()
-				if linters_by_ft[vim.bo.filetype] ~= nil then
-					require("lint").try_lint()
+				if lint.linters_by_ft[vim.bo.filetype] ~= nil then
+					lint.try_lint()
 				end
 			end,
 		})
