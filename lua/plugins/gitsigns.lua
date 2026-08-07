@@ -2,6 +2,22 @@
 return {
 	"lewis6991/gitsigns.nvim",
 	event = "BufRead",
+	keys = {
+		{
+			"<leader>gtc",
+			function()
+				require("gitsigns").nav_hunk("next")
+			end,
+			desc = "Go to next (git) change",
+		},
+		{
+			"<leader>gd",
+			function()
+				require("gitsigns").toggle_deleted()
+			end,
+			desc = "Toggle inline git diff (deleted lines)",
+		},
+	},
 	---@type Gitsigns.Config
 	---@diagnostic disable: missing-fields
 	opts = {
