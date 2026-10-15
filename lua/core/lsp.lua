@@ -54,4 +54,21 @@ function M.default_capabilities(override)
 	return capabilities
 end
 
+---Wrap cmd with `lspmux client` when NVIM_USE_LSPMUX is set.
+---@param cmd string[]
+---@return string[]
+function M.multiplex(cmd)
+	if not vim.env.NVIM_USE_LSPMUX or vim.env.NVIM_USE_LSPMUX == "0" then
+		return cmd
+	end
+
+	local server = vim.fn.exepath(cmd[1])
+	if server == "" or vim.fn.executable("lspmux") == 0 then
+		return cmd
+	end
+
+	-- without `--` lspmux parses server flags like --stdio as its own
+	return vim.list_extend({ "lspmux", "client", "--server-path", server, "--" }, cmd, 2)
+end
+
 return M

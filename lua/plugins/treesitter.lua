@@ -4,15 +4,16 @@ return {
 	branch = "main",
 	lazy = false,
 	build = ":TSUpdate",
-	opts = {},
-	config = function()
+	config = function(plugin)
+		vim.opt.rtp:prepend(plugin.dir .. "/runtime")
+
 		local ts_path = vim.env.LOCAL_NVIM_TREESITTER_PATH
 		if ts_path then
 			vim.opt.rtp:prepend(ts_path)
 		end
 		vim.opt.foldenable = false
 		vim.opt.foldmethod = "expr"
-		vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+		vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 	end,
 	keys = {},
 }

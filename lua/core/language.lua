@@ -212,6 +212,10 @@ function Language:_setup_server(name, config)
 		}
 	end
 
+	if type(config.cmd) == "table" then
+		config.cmd = lsp.multiplex(config.cmd)
+	end
+
 	-- default lsp config filetypes to all defined for the language
 	if config.filetypes == nil then
 		config.filetypes = self.ftypes
