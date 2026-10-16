@@ -1,5 +1,9 @@
 local M = {}
 
+M.multiplex_blacklist = {
+	pyright = true,
+}
+
 local function if_nil(val, default)
 	if val == nil then
 		return default
@@ -55,9 +59,14 @@ function M.default_capabilities(override)
 end
 
 ---Wrap cmd with `lspmux client` when NVIM_USE_LSPMUX is set.
+---@param name string
 ---@param cmd string[]
 ---@return string[]
-function M.multiplex(cmd)
+function M.multiplex(name, cmd)
+	if M.multiplex_blacklist[name] then
+		return cmd
+	end
+
 	if not vim.env.NVIM_USE_LSPMUX or vim.env.NVIM_USE_LSPMUX == "0" then
 		return cmd
 	end
